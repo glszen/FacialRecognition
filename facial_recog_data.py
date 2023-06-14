@@ -119,40 +119,40 @@ Y_test.shape
 # MODEL BUILDING
 # """
        
-# base_model= VGG19(
-#         weights=None, #connection managements between two basic units within a neural network
-#         include_top=False, #in order to exclude the model's fully-connected layers
-#         input_shape=IMG_SIZE + (3,)
-#     )
+ base_model= VGG19(
+         weights=None, #connection managements between two basic units within a neural network
+         include_top=False, #in order to exclude the model's fully-connected layers
+         input_shape=IMG_SIZE + (3,)
+     )
 
-# base_model.summary()
+ base_model.summary()
 
-# NUM_CLASSES= 6
+ NUM_CLASSES= 6
 
-# model=Sequential()
-# model.add(base_model)
-# model.add(Flatten())
-# model.add(Dense(1000, activation="relu"))
-# model.add(Dropout(0.1)) #simple and powerful regularization technique
-# model.add(Dense(NUM_CLASSES, activation="softmax"))
+ model=Sequential()
+ model.add(base_model)
+ model.add(Flatten())
+ model.add(Dense(1000, activation="relu"))
+ model.add(Dropout(0.1)) #simple and powerful regularization technique
+ model.add(Dense(NUM_CLASSES, activation="softmax"))
 
-# def deep_model(model, X_train, Y_train, epochs, batch_size): #batch:number of subtests
+ def deep_model(model, X_train, Y_train, epochs, batch_size): #batch:number of subtests
     
-#     model.compile(
-#     loss='binary_crossentropy',
-#     optimizer= RMSprop(learning_rate=1e-4),
-#     metrics=['accuracy'])
+     model.compile(
+     loss='binary_crossentropy',
+     optimizer= RMSprop(learning_rate=1e-4),
+     metrics=['accuracy'])
     
-#     history=model.fit(X_train,
-#                       Y_train,
-#                       epochs=epochs,
-#                       batch_size=batch_size)
-#     return history
+     history=model.fit(X_train,
+                       Y_train,
+                       epochs=epochs,
+                       batch_size=batch_size)
+     return history
 
-# epochs=1
-# batch_size=128
+ epochs=1
+ batch_size=128
 
-# history=deep_model(model, X_train, Y_train, epochs, batch_size)
+ history=deep_model(model, X_train, Y_train, epochs, batch_size)
 
 """ *********************************************************************** """
 
@@ -190,7 +190,7 @@ def plot_confusion_matrix(cm, classes,
 predictions=model.predict(X_test)
 y_pred=[np.argmax(probas) for probas in predictions]
 
-accuracy=accuracy_store(y_test, y_pred)
+accuracy=accuracy_score(y_test, y_pred)
 print('Test Accuracy = %.2f' % accuracy)
 
 confusion_mtx=confusion_matrix(y_test, y_pred)
